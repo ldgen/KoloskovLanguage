@@ -55,11 +55,12 @@ namespace KoloskovLanguage
             }
         }
 
-        public System.DateTime LastVisitDate
+        public string LastVisitDate
         {
             get
             {
-                return KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime);
+                if (VisitCount == 0) return "Нет";
+                else return KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString();
             }
         }
     }
