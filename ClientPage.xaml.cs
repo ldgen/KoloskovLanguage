@@ -35,6 +35,8 @@ namespace KoloskovLanguage
             ClientListView.ItemsSource = currentClient;
             List<Client> currentClients = KoloskovLanguageEntities.GetContext().Client.ToList();
             strCount.SelectedIndex = 0;
+            FiltrBox.SelectedIndex = 0;
+            SortBox.SelectedIndex = 0;
             TBAllRecords.Text = KoloskovLanguageEntities.GetContext().Client.ToList().Count().ToString();
             Update();
         }
@@ -42,6 +44,34 @@ namespace KoloskovLanguage
         public void Update()
         {
             var currentClient = KoloskovLanguageEntities.GetContext().Client.ToList();
+
+            if (SortBox.SelectedIndex == 1)
+            {
+                currentClient = currentClient.OrderBy(p => p.LastName).ToList();
+            }
+            else if (SortBox.SelectedIndex == 2)
+            {
+                currentClient = currentClient.OrderByDescending(p => p.VisitCount).ToList();
+            }
+            else if (SortBox.SelectedIndex == 3)
+            {
+                currentClient = currentClient.OrderByDescending(p => p.LastVisitDateSort).ToList();
+            }
+
+            if (FiltrBox.SelectedIndex == 1)
+            {
+                currentClient = currentClient.Where(p => p.GenderCode == "ж").ToList();
+            }
+            else if (FiltrBox.SelectedIndex == 2)
+            {
+                currentClient = currentClient.Where(p => p.GenderCode == "м").ToList();
+            }
+
+            currentClient = currentClient.Where(p => p.LastName.ToLower().Contains(TBoxSearch.Text.ToLower()) || 
+            p.FirstName.ToLower().Contains(TBoxSearch.Text.ToLower()) ||
+            p.Patronymic.ToLower().Contains(TBoxSearch.Text.ToLower()) || 
+            p.Email.ToLower().Contains(TBoxSearch.Text.ToLower()) ||
+            p.Phone.Replace("+", "").Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "").ToLower().Contains(TBoxSearch.Text.Replace("+", "").Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "").ToLower())).ToList();
 
             TBAllRecords.Text = KoloskovLanguageEntities.GetContext().Client.ToList().Count().ToString();
             TBCount.Text = currentClient.Count().ToString();
@@ -198,6 +228,21 @@ namespace KoloskovLanguage
             {
                 MessageBox.Show("Невозможно выполнить удаление, так как клиент посещал школу!");
             }
+        }
+
+        private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Update();
+        }
+
+        private void FiltrBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update();
+        }
+
+        private void SortBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update();
         }
     }
 }

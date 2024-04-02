@@ -80,5 +80,15 @@ namespace KoloskovLanguage
                 return Birthday.ToShortDateString();
             }
         }
+
+        public DateTime LastVisitDateSort
+        {
+            get
+            {
+                if (VisitCount != 0)
+                    return Convert.ToDateTime(KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortTimeString());
+                return Convert.ToDateTime("01-01-0001");
+            }
+        }
     }
 }
