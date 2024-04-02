@@ -54,7 +54,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                             <TextBlock Text="Дата рождения: " FontSize="20"/>
-                            <TextBlock Text="{Binding Birthday}" FontSize="20"/>
+                            <TextBlock Text="{Binding BirthdayFormat}" FontSize="20"/>
                             <TextBlock Text=" " FontSize="20"/>
                             <TextBlock Text="Пол: " FontSize="20"/>
                             <TextBlock Text="{Binding GenderName}" FontSize="20"/>
@@ -69,7 +69,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
                             <TextBlock Text="Дата регистрации: " FontSize="20"/>
-                            <TextBlock Text="{Binding RegistrationDate}" FontSize="20"/>
+                            <TextBlock Text="{Binding RegistrationDateFormat}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
                             <TextBlock Text="Дата последнего посещения: " FontSize="20"/>
@@ -78,10 +78,34 @@
                         <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
                             <TextBlock Text="Количество посещений: " FontSize="20"/>
                             <TextBlock Text="{Binding VisitCount}" FontSize="20"/>
+                            <Button Name="BtnDelete" Content="Удалить" Click="BtnDelete_Click"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
+            <TextBlock Text="Выводить по " FontSize="20"/>
+            <ComboBox Name="strCount" Width="100" SelectionChanged="strCount_SelectionChanged" FontSize="20">
+                <TextBlock>10</TextBlock>
+                <TextBlock>50</TextBlock>
+                <TextBlock>200</TextBlock>
+                <TextBlock>Все</TextBlock>
+            </ComboBox>
+            <TextBlock Name="TBCount" FontSize="20" VerticalAlignment="Center" Height="25"/>
+            <TextBlock Text=" из " VerticalAlignment="Center" FontSize="20"/>
+            <TextBlock Name="TBAllRecords" FontSize="20" VerticalAlignment="Center" Height="25"/>
+            <Button Name="LeftDirButton" Content="&lt;" Width="20" Height="25" Click="LeftDirButton_Click"/>
+            <ListBox FontFamily="20" Name="PageListBox" MouseUp="PageListBox_MouseUp" FontSize="20">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" Width="20" Height="25" Click="RightDirButton_Click"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

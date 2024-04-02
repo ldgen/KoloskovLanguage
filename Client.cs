@@ -29,7 +29,7 @@ namespace KoloskovLanguage
         public string GenderCode { get; set; }
         public string Phone { get; set; }
         public string PhotoPath { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
+        public System.DateTime Birthday { get; set; }
         public string Email { get; set; }
         public System.DateTime RegistrationDate { get; set; }
     
@@ -61,6 +61,23 @@ namespace KoloskovLanguage
             {
                 if (VisitCount == 0) return "Нет";
                 else return KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString();
+            }
+        }
+
+        public string RegistrationDateFormat
+        {
+            get
+            {
+
+                return RegistrationDate.ToShortDateString();
+            }
+        }
+
+        public string BirthdayFormat
+        {
+            get
+            {
+                return Birthday.ToShortDateString();
             }
         }
     }
