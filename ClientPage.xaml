@@ -53,6 +53,7 @@
                             <TextBlock Text="{Binding Patronymic}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                            <TextBlock Text="Дата рождения: " FontSize="20"/>
                             <TextBlock Text="{Binding Birthday}" FontSize="20"/>
                             <TextBlock Text=" " FontSize="20"/>
                             <TextBlock Text="Пол: " FontSize="20"/>
