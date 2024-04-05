@@ -55,15 +55,6 @@ namespace KoloskovLanguage
             }
         }
 
-        public string LastVisitDate
-        {
-            get
-            {
-                if (VisitCount == 0) return "Нет";
-                else return KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString();
-            }
-        }
-
         public string RegistrationDateFormat
         {
             get
@@ -86,8 +77,19 @@ namespace KoloskovLanguage
             get
             {
                 if (VisitCount != 0)
-                    return Convert.ToDateTime(KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortTimeString());
+                    return Convert.ToDateTime(KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString());
                 return Convert.ToDateTime("01-01-0001");
+            }
+        }
+
+        public string LastVisitDate
+        {
+            get
+            {
+                if (VisitCount == 0)
+                    return "Нет";
+                else
+                    return KoloskovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString();
             }
         }
     }

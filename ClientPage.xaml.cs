@@ -176,7 +176,7 @@ namespace KoloskovLanguage
                     }
                     PageListBox.SelectedIndex = CurrentPage;
 
-                    TBAllRecords.Text = CountRecords.ToString();
+                    //TBAllRecords.Text = CountRecords.ToString();
 
                     ClientListView.ItemsSource = CurrentPageList;
 
